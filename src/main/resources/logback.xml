@@ -1,0 +1,46 @@
+<configuration>
+
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+        </appender>
+
+        <appender name="APP_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <append>true</append>
+                <file>target/log/Full.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <!-- daily rollover with automatic file compression-->
+                        <fileNamePattern>target/log/Full.%d{yyyy-MM-dd}.gz</fileNamePattern>
+                        <!-- keep 10 days' worth of history -->
+                        <maxHistory>10</maxHistory>
+                </rollingPolicy>
+                <encoder>
+                        <pattern>%d{HH:mm:ss.SSS} %level [%thread] %logger{10} %msg%n</pattern>
+                </encoder>
+        </appender>
+
+        <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>target/log/ERROR.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <!-- daily rollover with automatic file compression-->
+                        <fileNamePattern>target/log/ERROR.%d{yyyy-MM-dd}.gz</fileNamePattern>
+                        <!-- keep 10 days' worth of history -->
+                        <maxHistory>10</maxHistory>
+                </rollingPolicy>
+                <encoder>
+                        <pattern>%d{HH:mm:ss.SSS} %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+                </encoder>
+                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                      <level>ERROR</level>
+                </filter>
+        </appender>
+
+        <logger name="ro.orange.service1" level="DEBUG" >
+                <appender-ref ref="APP_LOG_FILE" />
+        </logger>
+
+        <root level="ERROR">
+           <appender-ref ref="FILE_ERROR" />
+        </root>
+</configuration>
