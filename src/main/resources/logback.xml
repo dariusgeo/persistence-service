@@ -36,7 +36,7 @@
                 </filter>
         </appender>
 
-        <logger name="ro.orange.service1" level="DEBUG" >
+        <logger name="edu.geodani.persistence" level="DEBUG" >
                 <appender-ref ref="APP_LOG_FILE" />
         </logger>
 
